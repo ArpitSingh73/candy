@@ -7,6 +7,9 @@ import purpleCandy from "./images/purple-candy.png";
 import redCandy from "./images/red-candy.png";
 import yellowCandy from "./images/yellow-candy.png";
 import blank from "./images/blank.png";
+import useSound from "use-sound";
+import Swap from "./sounds/swap.mp3"
+import Restricted from "./sounds/restricted.mp3"
 
 const width = 8;
 const candyColors = [
@@ -23,6 +26,8 @@ const App = () => {
   const [squareBeingDragged, setSquareBeingDragged] = useState(null);
   const [squareBeingReplaced, setSquareBeingReplaced] = useState(null);
   const [scoreDisplay, setScoreDisplay] = useState(0);
+  const [restricted] = useSound(Restricted);
+  const [swap] = useSound(Swap);
 
   const checkForColumnOfFour = () => {
     for (let i = 0; i <= 39; i++) {
@@ -40,6 +45,7 @@ const App = () => {
         columnOfFour.forEach(
           (square) => (currentColorArrangement[square] = blank)
         );
+        swap()
         return true;
       }
     }
@@ -67,6 +73,7 @@ const App = () => {
         rowOfFour.forEach(
           (square) => (currentColorArrangement[square] = blank)
         );
+        swap()
         return true;
       }
     }
@@ -88,6 +95,7 @@ const App = () => {
         columnOfThree.forEach(
           (square) => (currentColorArrangement[square] = blank)
         );
+        swap()
         return true;
       }
     }
@@ -114,6 +122,7 @@ const App = () => {
         rowOfThree.forEach(
           (square) => (currentColorArrangement[square] = blank)
         );
+        swap()
         return true;
       }
     }
@@ -177,6 +186,7 @@ const App = () => {
       setSquareBeingDragged(null);
       setSquareBeingReplaced(null);
     } else {
+      restricted()
       currentColorArrangement[squareBeingReplacedId] =
         squareBeingReplaced.getAttribute("src");
       currentColorArrangement[squareBeingDraggedId] =
