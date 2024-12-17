@@ -8,8 +8,8 @@ import redCandy from "./images/red-candy.png";
 import yellowCandy from "./images/yellow-candy.png";
 import blank from "./images/blank.png";
 import useSound from "use-sound";
-import Swap from "./sounds/swap.mp3"
-import Restricted from "./sounds/restricted.mp3"
+import Swap from "./sounds/swap.mp3";
+import Restricted from "./sounds/restricted.mp3";
 
 const width = 8;
 const candyColors = [
@@ -45,7 +45,7 @@ const App = () => {
         columnOfFour.forEach(
           (square) => (currentColorArrangement[square] = blank)
         );
-        swap()
+        swap();
         return true;
       }
     }
@@ -73,7 +73,7 @@ const App = () => {
         rowOfFour.forEach(
           (square) => (currentColorArrangement[square] = blank)
         );
-        swap()
+        swap();
         return true;
       }
     }
@@ -95,7 +95,7 @@ const App = () => {
         columnOfThree.forEach(
           (square) => (currentColorArrangement[square] = blank)
         );
-        swap()
+        swap();
         return true;
       }
     }
@@ -122,7 +122,7 @@ const App = () => {
         rowOfThree.forEach(
           (square) => (currentColorArrangement[square] = blank)
         );
-        swap()
+        swap();
         return true;
       }
     }
@@ -151,47 +151,70 @@ const App = () => {
   const dragDrop = (e) => {
     setSquareBeingReplaced(e.target);
   };
-  const dragEnd = () => {
-    const squareBeingDraggedId = parseInt(
-      squareBeingDragged.getAttribute("data-id")
-    );
-    const squareBeingReplacedId = parseInt(
-      squareBeingReplaced.getAttribute("data-id")
-    );
-
-    currentColorArrangement[squareBeingReplacedId] =
-      squareBeingDragged.getAttribute("src");
-    currentColorArrangement[squareBeingDraggedId] =
-      squareBeingReplaced.getAttribute("src");
-
-    const validMoves = [
-      squareBeingDraggedId - 1,
-      squareBeingDraggedId - width,
-      squareBeingDraggedId + 1,
-      squareBeingDraggedId + width,
-    ];
-
-    const validMove = validMoves.includes(squareBeingReplacedId);
-
-    const isAColumnOfFour = checkForColumnOfFour();
-    const isARowOfFour = checkForRowOfFour();
-    const isAColumnOfThree = checkForColumnOfThree();
-    const isARowOfThree = checkForRowOfThree();
-
+  const validSwap = (squareBeingDraggedId, squareBeingReplacedId) => {
+    console.log(squareBeingDraggedId, squareBeingReplacedId);
     if (
-      squareBeingReplacedId &&
-      validMove &&
-      (isARowOfThree || isARowOfFour || isAColumnOfFour || isAColumnOfThree)
+      squareBeingReplacedId !== squareBeingDraggedId + 1 ||
+      squareBeingReplacedId !== squareBeingDraggedId - 1 ||
+      squareBeingReplacedId !== squareBeingDraggedId + width ||
+      squareBeingReplacedId !== squareBeingDraggedId - width
     ) {
-      setSquareBeingDragged(null);
-      setSquareBeingReplaced(null);
+      return false;
     } else {
-      restricted()
+      return true;
+    }
+  };
+
+  const dragEnd = () => {
+    try {
+      const squareBeingDraggedId = parseInt(
+        squareBeingDragged.getAttribute("data-id")
+      );
+      const squareBeingReplacedId = parseInt(
+        squareBeingReplaced.getAttribute("data-id")
+      );
+
       currentColorArrangement[squareBeingReplacedId] =
-        squareBeingReplaced.getAttribute("src");
-      currentColorArrangement[squareBeingDraggedId] =
         squareBeingDragged.getAttribute("src");
-      setCurrentColorArrangement([...currentColorArrangement]);
+      currentColorArrangement[squareBeingDraggedId] =
+        squareBeingReplaced.getAttribute("src");
+
+      const validMoves = [
+        squareBeingDraggedId - 1,
+        squareBeingDraggedId - width,
+        squareBeingDraggedId + 1,
+        squareBeingDraggedId + width,
+      ];
+
+      const validMove = validMoves.includes(squareBeingReplacedId);
+
+      const isAColumnOfFour = checkForColumnOfFour();
+      const isARowOfFour = checkForRowOfFour();
+      const isAColumnOfThree = checkForColumnOfThree();
+      const isARowOfThree = checkForRowOfThree();
+      console.log(validSwap(squareBeingDraggedId, squareBeingReplacedId));
+
+      if (validSwap(squareBeingDraggedId, squareBeingReplacedId)) {
+        if (
+          squareBeingReplacedId &&
+          validSwap(squareBeingDraggedId, squareBeingReplacedId) === true &&
+          validMove &&
+          (isARowOfThree || isARowOfFour || isAColumnOfFour || isAColumnOfThree)
+        ) {
+          setSquareBeingDragged(null);
+          setSquareBeingReplaced(null);
+        }
+      }
+     else {
+        restricted();
+        currentColorArrangement[squareBeingReplacedId] =
+          squareBeingReplaced.getAttribute("src");
+        currentColorArrangement[squareBeingDraggedId] =
+          squareBeingDragged.getAttribute("src");
+        setCurrentColorArrangement([...currentColorArrangement]);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
