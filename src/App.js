@@ -162,7 +162,7 @@ const App = () => {
       return false;
     } else {
       return true;
-    }
+    } 
   };
 
   const dragEnd = () => {
