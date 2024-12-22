@@ -153,16 +153,16 @@ const App = () => {
   };
   const validSwap = (squareBeingDraggedId, squareBeingReplacedId) => {
     console.log(squareBeingDraggedId, squareBeingReplacedId);
-    if (
-      squareBeingReplacedId !== squareBeingDraggedId + 1 ||
-      squareBeingReplacedId !== squareBeingDraggedId - 1 ||
-      squareBeingReplacedId !== squareBeingDraggedId + width ||
-      squareBeingReplacedId !== squareBeingDraggedId - width
-    ) {
+    // if (
+    //   squareBeingReplacedId === squareBeingDraggedId + 1 ||
+    //   squareBeingReplacedId === squareBeingDraggedId - 1 ||
+    //   squareBeingReplacedId === squareBeingDraggedId + width ||
+    //   squareBeingReplacedId === squareBeingDraggedId - width
+    // ) {
+    //   return true;
+    // } else {
       return false;
-    } else {
-      return true;
-    } 
+    // } 
   };
 
   const dragEnd = () => {
@@ -186,7 +186,10 @@ const App = () => {
         squareBeingDraggedId + width,
       ];
 
+      console.log("vm --- ", validMoves);
+
       const validMove = validMoves.includes(squareBeingReplacedId);
+      console.log("vm --- ", validMove);
 
       const isAColumnOfFour = checkForColumnOfFour();
       const isARowOfFour = checkForRowOfFour();
@@ -194,17 +197,19 @@ const App = () => {
       const isARowOfThree = checkForRowOfThree();
       console.log(validSwap(squareBeingDraggedId, squareBeingReplacedId));
 
-      if (validSwap(squareBeingDraggedId, squareBeingReplacedId)) {
+      // if (validSwap(squareBeingDraggedId, squareBeingReplacedId) === true) {
         if (
           squareBeingReplacedId &&
-          validSwap(squareBeingDraggedId, squareBeingReplacedId) === true &&
+          // validSwap(squareBeingDraggedId, squareBeingReplacedId) === true &&
           validMove &&
           (isARowOfThree || isARowOfFour || isAColumnOfFour || isAColumnOfThree)
         ) {
           setSquareBeingDragged(null);
           setSquareBeingReplaced(null);
+            // currentColorArrangement[squareBeingReplacedId] = squareBeingDragged.getAttribute("src");
+            // setCurrentColorArrangement([...currentColorArrangement]);
         }
-      }
+      // }
      else {
         restricted();
         currentColorArrangement[squareBeingReplacedId] =
@@ -253,7 +258,9 @@ const App = () => {
 
   return (
     <div className="app">
+      <div className="line"></div>
       <div className="game">
+        
         {currentColorArrangement.map((candyColor, index) => (
           <img
             key={index}
@@ -269,8 +276,9 @@ const App = () => {
             onDragEnd={dragEnd}
           />
         ))}
-      </div>
       <ScoreBoard score={scoreDisplay} />
+      </div>
+      <div className="line"></div>
     </div>
   );
 };

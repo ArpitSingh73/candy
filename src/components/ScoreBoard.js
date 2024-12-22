@@ -1,7 +1,12 @@
+import "../index.css"
+// import { MdScore } from "react-icons/md";
 const ScoreBoard = ({ score }) => {
+
+
   return (
     <div className="score-board">
-      <h2>Your Score: {score}</h2>
+      {/* <MdScore /> */}
+      <h2>My Score: {score}</h2>
     </div>
   );
 };
