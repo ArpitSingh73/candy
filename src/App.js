@@ -258,9 +258,12 @@ const App = () => {
 
   return (
     <div className="app">
+      {alert(
+        "Better to check on devices with cursor."
+      )}
+
       <div className="line"></div>
       <div className="game">
-        
         {currentColorArrangement.map((candyColor, index) => (
           <img
             key={index}
@@ -276,7 +279,7 @@ const App = () => {
             onDragEnd={dragEnd}
           />
         ))}
-      <ScoreBoard score={scoreDisplay} />
+        <ScoreBoard score={scoreDisplay} />
       </div>
       <div className="line"></div>
     </div>
