@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/candy/static/css/main.85c87eb4.css",
-    "main.js": "/candy/static/js/main.ba1d20f7.js",
+    "main.js": "/candy/static/js/main.9c1ba580.js",
     "static/js/885.c21c7bad.chunk.js": "/candy/static/js/885.c21c7bad.chunk.js",
     "static/js/488.eb610b26.chunk.js": "/candy/static/js/488.eb610b26.chunk.js",
     "static/media/purple-candy.png": "/candy/static/media/purple-candy.ae25b8a55e061a50346f.png",
@@ -15,12 +15,12 @@
     "static/media/swap.mp3": "/candy/static/media/swap.86a3fcc09d5717744473.mp3",
     "index.html": "/candy/index.html",
     "main.85c87eb4.css.map": "/candy/static/css/main.85c87eb4.css.map",
-    "main.ba1d20f7.js.map": "/candy/static/js/main.ba1d20f7.js.map",
+    "main.9c1ba580.js.map": "/candy/static/js/main.9c1ba580.js.map",
     "885.c21c7bad.chunk.js.map": "/candy/static/js/885.c21c7bad.chunk.js.map",
     "488.eb610b26.chunk.js.map": "/candy/static/js/488.eb610b26.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.85c87eb4.css",
-    "static/js/main.ba1d20f7.js"
+    "static/js/main.9c1ba580.js"
   ]
 }
